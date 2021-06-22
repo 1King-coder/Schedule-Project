@@ -1,14 +1,35 @@
 <%- include('includes/head'); %>
-<body>
-    <section class="container">
-        <h1>Lorem, ipsum dolor sit amet</h1>
-        <form action="/" method="POST">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <label for="username">Username: </label>
-            <input type="text" name="username">
-            <input type="submit" value="Submit">
-        </form>
-    </section>
-    <script src="./assets/js/bundle.js"></script>
-</body>
-</html>
+<%- include('includes/nav'); %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+
+        <div class="col-lg-8 my-5">
+            <h1 class="dispay-2 text-center">Schedule</h1>
+            <p class="text-center lead">Yours contacts:</p>
+
+            <div class="row">
+                <div class="col my-3">
+                    <div class="alert alert-danger">Some error</div>
+                </div>
+            </div>
+
+            <div class="responsive-table">
+                <table class="table my-3">
+                    <tr>
+                        <td>Vitor</td>
+                        <td>dos Santos</td>
+                        <td>8937218</td>
+                        <td>Viro@goa.com</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+
+<%- include('includes/footer'); %>

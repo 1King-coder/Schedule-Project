@@ -1,12 +1,8 @@
-exports.globalMiddleware = (request, response, next) => {
-    console.log('I am a Global middleware.')
-    next();
-};
-
 exports.checkCsrfError = (error, request, response, next) => {
-    if (error && error.code === 'EBADCSRFTOKEN') {
-        return response.render('csrfError')
+    if (error) {
+        return response.render('404');
     };
+    next();
 };
 
 exports.csrfMiddleware = (request, response, next) => {
