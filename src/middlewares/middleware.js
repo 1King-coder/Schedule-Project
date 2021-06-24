@@ -17,3 +17,12 @@ exports.csrfMiddleware = (request, response, next) => {
     response.locals.csrfToken = request.csrfToken();
     next();
 };
+
+exports.loginRequired = (request, response, next) => {
+    if (!request.session.user) {
+        request.flash('errors', 'You need to be logged to proceed.');
+        request.session.save(() => response.redirect('/'));
+        return
+    };
+    next();
+};

@@ -42,6 +42,7 @@
                     <p>If you have already registered, login below:</p>
 
                     <form class="form-login" action="/login/login" method="POST">
+                        <input type="hidden" name="_csrf" value=<%= csrfToken %>>
                         <div class="form-group mb-3">
                             <label>Your e-mail:</label>
                             <input type="email" class="form-control" name="email">
