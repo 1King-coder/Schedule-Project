@@ -10,18 +10,26 @@
             <p class="text-center lead">Yours contacts:</p>
 
             <%- include('includes/messages') %> 
-
+            <% if (contacts.length > 0) { %> 
             <div class="responsive-table">
                 <table class="table my-3">
+                <% contacts.forEach(contact => { %>
                     <tr>
-                        <td>Vitor</td>
-                        <td>dos Santos</td>
-                        <td>8937218</td>
-                        <td>Viro@goa.com</td>
+                        <td><%= contact.name %></td>
+                        <td><%= contact.lastname %></td>
+                        <td><%= contact.email %></td>
+                        <td><%= contact.phone %></td>
+                        <td><a style="text-decoration: none;" href="/contact/index/<%= contact._id %>">Edit</a></td>
+                        <td><a class="text-danger" style="text-decoration: none;" href="/contact/delete/<%= contact._id %>">Delete</a></td>
                     </tr>
+
+                <% }); %>
+                
                 </table>
             </div>
-
+            <% } else { %>
+                <p class="text-center lead">There is no contacts in your schedule.</p>
+            <% }; %> 
         </div>
 
         <div class="col-lg-2"></div>

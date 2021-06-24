@@ -20,13 +20,24 @@ function Contact(body) {
     this.contact = null;  
 };
 
-Contact.prototype.register = async function() {
-    this.validate(); 
-
+Contact.prototype.edit = async function(id) {
+    if (typeof id !== 'string') return;
+    this.validate();
     if (this.errors.length > 0) return;
 
-    this.contact = await ContactModel.create(this.body);
+    this.contact = await ContactModel.findByIdAndUpdate(id, this.body, { new: true });
+    
+};
 
+
+
+Contact.prototype.register = async function() {
+    this.validate(); 
+    
+    if (this.errors.length > 0) return;
+    
+    this.contact = await ContactModel.create(this.body);
+    
 };
 
 Contact.prototype.validate = function() {
@@ -45,7 +56,7 @@ Contact.prototype.cleanUp = function() {
             this.body[key] = '';
         };
     };
-
+    
     this.body = {
         name: this.body.name,
         lastname: this.body.lastname,
@@ -54,5 +65,22 @@ Contact.prototype.cleanUp = function() {
     };
 };
 
+Contact.seachById = async function(id) {
+    if (typeof id !== 'string') return;
+    const user = await ContactModel.findById(id);
+    return user;
+};
+
+Contact.seachContacts = async function() {
+    const contact = await ContactModel.find()
+        .sort({ createdOn: 1 })
+    return contact;
+};
+
+Contact.deleteContact = async function(id) {
+    if (typeof id !== 'string') return;
+    const contact = await ContactModel.findByIdAndDelete({ _id: id });
+    return contact;
+};
 
 module.exports = Contact;

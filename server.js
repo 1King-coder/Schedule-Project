@@ -1,12 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose')  // DB module
+const mongoose = require('mongoose');  // DB module
 
 // Stablish connection with MongoDB
 mongoose.connect(process.env.CONNECTIONSTRING, { 
     useNewUrlParser: true, 
-    useUnifiedTopology: true })
+    useUnifiedTopology: true,
+    useFindAndModify: false })
     .then( () => {
         app.emit('started')
     })
