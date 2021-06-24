@@ -4,7 +4,9 @@ const app = express();
 const mongoose = require('mongoose')  // DB module
 
 // Stablish connection with MongoDB
-mongoose.connect(process.env.CONNECTIONSTRING, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.CONNECTIONSTRING, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true })
     .then( () => {
         app.emit('started')
     })
@@ -18,11 +20,11 @@ const flash = require('connect-flash');
 
 const routes = require('./routes');
 const path = require('path');
-const helmet = require('helmet');
+// const helmet = require('helmet'); // helmet começou a causar problemas no localhost por conta da falta de SSL
 const csrf = require('csurf');
-const { checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware')
+const { globalMiddleware ,checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware')
 
-app.use(helmet());
+// app.use(helmet()); // helmet começou a causar problemas no localhost por conta da falta de SSL
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));  // Allow request.body
@@ -48,6 +50,7 @@ app.set('view engine', 'ejs');
 
 app.use(csrf());
 // our middlewares
+app.use(globalMiddleware);
 app.use(checkCsrfError);
 app.use(csrfMiddleware);
 app.use(routes);

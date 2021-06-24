@@ -1,5 +1,5 @@
 {
-  "name": "Express-Boilerplate",
+  "name": "Schedule-Project",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^4.4.1",
     "core-js": "^3.13.0",
@@ -24,7 +25,8 @@
     "helmet": "^4.6.0",
     "mongoose": "^5.12.14",
     "regenerator-runtime": "^0.13.7",
-    "style-loader": "^2.0.0"
+    "style-loader": "^2.0.0",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",
