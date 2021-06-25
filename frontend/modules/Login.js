@@ -1,8 +1,10 @@
 import validator from "validator";
+import ErrorThreatment from "./ThreatErrors";
 
-export default class Register {
+export default class LoginRegister {
     constructor (formClass) {
         this.form = document.querySelector(formClass);
+        this.errors = [];
     };
 
     init () {
@@ -23,16 +25,11 @@ export default class Register {
         const email = el.querySelector('[type="email"]');
         const password = el.querySelector('[type="password"]');
 
-        if (!validator.isEmail(email.value)) return this.throwError(email, 'Invalid e-mail.');
-        if (password.value.length < 3 || password.value.length > 50) return this.throwError(password, 'Password must have 3-50 characteres.');
+        if (!validator.isEmail(email.value)) this.errors.push({ input: email, msg: 'Invalid e-mail.' });
+        if (password.value.length < 3 || password.value.length > 50) this.errors.push({ input: password, msg: 'Password must have 3-50 characteres.' });
+
+        if (this.errors.length > 0) return this.errors = ErrorThreatment.throwErrors(this.errors);
 
         this.form.submit();
-    };
-
-    throwError (el, message) {
-        const div = document.createElement('div');
-        div.setAttribute('class', 'text-danger error');
-        div.innerHTML = message;
-        el.insertAdjacentElement('afterend', div);
     };
 };

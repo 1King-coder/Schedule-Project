@@ -1,15 +1,13 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-import Login from './modules/Login'
-import Register from './modules/Register';
+import LoginRegister from './modules/Login';
 import Contacts from './modules/Contacts';
 
-const loginFormValidator = new Login('.form-login');
-const registerFormValidator = new Register('.form-register');
-const contactsFormValidator = new Contacts('form-register-contact');
+const loginFormValidator = new LoginRegister('.form-login');
+const registerFormValidator = new LoginRegister('.form-register');
+const contactsFormValidator = new Contacts('.form-register-contact');
 
 loginFormValidator.init();
 registerFormValidator.init();
 contactsFormValidator.init();
-

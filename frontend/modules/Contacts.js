@@ -1,8 +1,10 @@
 import validator from "validator";
+import ErrorThreatment from "./ThreatErrors";
 
 export default class Contacts {
     constructor (formClass) {
         this.form = document.querySelector(formClass);
+        this.errors = [];
     };
 
     init () {
@@ -23,17 +25,15 @@ export default class Contacts {
         const el = e.target;
         const email = el.querySelector('[type="email"]');
         const name = el.querySelector('[name="name"]');
+        
+        if (email.value && !validator.isEmail(email.value)) this.errors.push({ input: email, msg: 'Invalid e-mail.' });
+        if (!name.value) this.errors.push({ input: name, msg: 'Name is required' });
+        
+        
+        if (this.errors.length > 0) return this.errors = ErrorThreatment.throwErrors(this.errors);
 
-        if (email.value && !validator.isEmail(email.value)) return this.throwError(email, 'Invalid e-mail.');
-        if (!name.value) return this.throwError(name, 'Name is required');
 
         this.form.submit();
     };
 
-    throwError (el, message) {
-        const div = document.createElement('div');
-        div.setAttribute('class', 'text-danger error');
-        div.innerHTML = message;
-        el.insertAdjacentElement('afterend', div);
-    };
 };
